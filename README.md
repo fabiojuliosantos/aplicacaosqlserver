@@ -5,12 +5,13 @@
 #### :question: Como rodar a aplicação 
 
 - Baixe o código fonte, e altere a ConnectionString para o correspondente ao seu banco
-  `Data Source=SEU-SERVER;Initial Catalog=SUA-DATABASE;User ID=SEU-USER;Password=SUA-SENHA"; ` 
-  Caso use outro banco de dados que não seja o SQL Server, crie sua ConnectionString [aqui](https://www.connectionstrings.com/).
+  >Data Source=SEU-SERVER;Initial Catalog=SUA-DATABASE;User ID=SEU-USER;Password=SUA-SENHA";  
+
+- Caso use outro banco de dados que não seja o SQL Server, crie sua ConnectionString [aqui](https://www.connectionstrings.com/).
 - Compile o projeto usando `dotnet run`.
 - Rode o projeto usando `dotnet run`.
 
-Obs.: Caso queira rodar a aplicação em modo Release, em um prompt próprio, rode o comando `dotnet publish -c Release -r win-x64` e rode a aplicação exportada em `aplicacaosqlserver\Aplicacao\bin\Release\net8.0\win-x64\Aplicacao.exe`
+>Obs.: Caso queira rodar a aplicação em modo Release, em um prompt próprio, rode o comando `dotnet publish -c Release -r win-x64` e rode a aplicação exportada em `aplicacaosqlserver\Aplicacao\bin\Release\net8.0\win-x64\Aplicacao.exe`
 
 #### :globe_with_meridians: Overview da aplicação
 
