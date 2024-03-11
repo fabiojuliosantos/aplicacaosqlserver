@@ -7,7 +7,7 @@
 - Baixe o código fonte, e altere a ConnectionString para o correspondente ao seu banco
   >Data Source=SEU-SERVER;Initial Catalog=SUA-DATABASE;User ID=SEU-USER;Password=SUA-SENHA";  
 
-- Caso use outro banco de dados que não seja o SQL Server, crie sua ConnectionString [aqui](https://www.connectionstrings.com/).
+- Caso use outro banco de dados que não seja o SQL Server, crie sua ConnectionString [aqui](https://www.connectionstrings.com/){:target="_blank"}.
 - Compile o projeto usando `dotnet run`.
 - Rode o projeto usando `dotnet run`.
 

@@ -1,5 +1,6 @@
 ﻿using System.Data.SqlClient;
 
+//ConnectionString usada para acessar o banco e as tabelas via ADO.NET
 string ConnectionString = "Data Source=FABIO-PC;Initial Catalog=ByteShopDB;User ID=sa;Password=@dm1n";
 
 #region Variáveis
