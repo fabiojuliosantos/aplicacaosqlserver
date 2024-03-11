@@ -58,7 +58,7 @@ if (ModoOperacao == 1)
                                             Nome = reader["Nome"].ToString();
                                             Cpf = reader["Cpf"].ToString();
                                             Telefone = reader["Telefone"].ToString();
-                                            DataNascimento = reader["DATANASCIMENTO"].ToString();
+                                            DataNascimento = ((DateTime)reader["DATANASCIMENTO"]).ToString("dd/MM/yyyy");
                                             Console.WriteLine($"Cliente: {Nome}, Data de Nascimento: {DataNascimento}, Cpf: {Cpf}, Telefone: {Telefone}");
                                         }
                                     }
@@ -366,10 +366,14 @@ else if (ModoOperacao == 2)
 
                         Console.WriteLine("Digite a data da compra");
                         DataCompra = Console.ReadLine();
+                        if(DataCompra == "Hoje")
+                        {
+                            DateTime hoje = DateTime.Today;
+                            DataCompra = hoje.ToString("yyyy-MM-dd");
+                        }
 
                         Console.WriteLine("Digite o Id do Cliente");
                         id = Convert.ToInt32(Console.ReadLine());
-
 
                         connection.Open();
 
