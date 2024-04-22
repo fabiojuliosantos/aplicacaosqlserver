@@ -18,9 +18,14 @@ int ModoOperacao = 1;
 int id = 0;
 int VendaId = 0;
 
+int[] valoresCliente = [1, 2, 3, 4, 0];
+int[] valoresVenda = [1, 2, 3, 4, 5, 0];
+
 #endregion Variáveis
 
-Console.WriteLine("Selecione a opção:\n 1 - Se deseja o modo de Clientes\n 2 - Se deseja o modo de Vendas\n");
+Console.WriteLine("Selecione a opção:\n 1 - Se deseja o modo de Clientes " +
+                  "\n 2 - Se deseja o modo de Vendas\n");
+
 ModoOperacao = Convert.ToInt32(Console.ReadLine());
 
 #region Clientes
@@ -29,11 +34,17 @@ if (ModoOperacao == 1)
 {
     while (Controle != 0)
     {
-        Console.WriteLine("\nSelecione a opção:\n 1 - Se deseja consultar todos os clientes\n 2 - Se deseja cadastrar um cliente. \n 3 - Se deseja atualizar um cliente. \n 4 - Se deseja deletar um cliente.\n 0 - Se deseja finalizar a execução.\n");
+        Console.WriteLine("\nSelecione a opção:" +
+                          "\n 1 - Se deseja consultar todos os clientes" +
+                          "\n 2 - Se deseja cadastrar um cliente. " +
+                          "\n 3 - Se deseja atualizar um cliente. " +
+                          "\n 4 - Se deseja deletar um cliente." +
+                          "\n 0 - Se deseja finalizar a execução.\n");
+
         Controle = Convert.ToInt32(Console.ReadLine());
         try
         {
-            if (Controle != 1 && Controle != 2 && Controle != 3 && Controle != 4 && Controle != 0) throw new Exception("Opção Inválida!");
+            if (!valoresCliente.Contains(Controle)) throw new Exception("Opção Inválida!");
 
             switch (Controle)
             {
@@ -60,7 +71,11 @@ if (ModoOperacao == 1)
                                             Cpf = reader["Cpf"].ToString();
                                             Telefone = reader["Telefone"].ToString();
                                             DataNascimento = ((DateTime)reader["DATANASCIMENTO"]).ToString("dd/MM/yyyy");
-                                            Console.WriteLine($"Cliente: {Nome}, Data de Nascimento: {DataNascimento}, Cpf: {Cpf}, Telefone: {Telefone}");
+
+                                            Console.WriteLine($"Cliente: {Nome}, " +
+                                                              $"Data de Nascimento: {DataNascimento}, " +
+                                                              $"Cpf: {Cpf}, " +
+                                                              $"Telefone: {Telefone}");
                                         }
                                     }
                                 }
@@ -99,7 +114,9 @@ if (ModoOperacao == 1)
                     {
                         connection.Open();
 
-                        Sql = string.Format("INSERT INTO CLIENTES (NOME, CPF, TELEFONE, DATANASCIMENTO) VALUES ('{0}', '{1}', '{2}', '{3}')", Nome, Cpf, Telefone, DataNascimento);
+                        Sql = string.Format("INSERT INTO CLIENTES (NOME, CPF, TELEFONE, DATANASCIMENTO) " +
+                                            " VALUES ('{0}', '{1}', '{2}', '{3}') ",
+                                            Nome, Cpf, Telefone, DataNascimento);
                         try
                         {
                             using (SqlCommand command = new SqlCommand(Sql, connection))
@@ -263,13 +280,20 @@ else if (ModoOperacao == 2)
 {
     while (Controle != 0)
     {
-        Console.WriteLine("\nSelecione a opção:\n 1 - Se deseja consultar todas as vendas\n 2 - Se deseja consultar todas as vendas de um cliente\n 3 - Se deseja realizar uma venda. \n 4 - Se deseja atualizar uma venda. \n 5 - Se deseja deletar uma venda.\n 0 - Se deseja finalizar a execução.\n");
+        Console.WriteLine("\nSelecione a opção:" +
+                          "\n 1 - Se deseja consultar todas as vendas" +
+                          "\n 2 - Se deseja consultar todas as vendas de um cliente" +
+                          "\n 3 - Se deseja realizar uma venda. " +
+                          "\n 4 - Se deseja atualizar uma venda. " +
+                          "\n 5 - Se deseja deletar uma venda." +
+                          "\n 0 - Se deseja finalizar a execução.\n");
+
         Controle = Convert.ToInt32(Console.ReadLine());
         using (SqlConnection connection = new SqlConnection(ConnectionString))
 
             try
             {
-                if (Controle != 1 && Controle != 2 && Controle != 3 && Controle != 4 && Controle != 5 && Controle != 0) throw new Exception("Opção Inválida!");
+                if (!valoresVenda.Contains(Controle)) throw new Exception("Opção Inválida!");
 
                 switch (Controle)
                 {
@@ -281,8 +305,8 @@ else if (ModoOperacao == 2)
                                 connection.Open();
 
                                 Sql = "SELECT V.VENDAID, V.VALOR, V.DATACOMPRA, C.NOME " +
-                                " FROM VENDAS V" +
-                                " INNER JOIN CLIENTES C ON V.CLIENTEID = C.CLIENTEID";
+                                      " FROM VENDAS V" +
+                                      " INNER JOIN CLIENTES C ON V.CLIENTEID = C.CLIENTEID";
 
                                 using (SqlCommand command = new SqlCommand(Sql, connection))
                                 {
@@ -295,7 +319,10 @@ else if (ModoOperacao == 2)
                                             DataCompra = ((DateTime)reader["DATACOMPRA"]).ToString("dd/MM/yyyy");
                                             Cliente = reader["NOME"].ToString();
 
-                                            Console.WriteLine($"\n Id da Compra: {VendaId}\n Valor da Compra: R$ {ValorCompra}\n Data da Compra: {DataCompra}\n Cliente: {Cliente}");
+                                            Console.WriteLine($"\n Id da Compra: {VendaId}" +
+                                                              $"\n Valor da Compra: R$ {ValorCompra}" +
+                                                              $"\n Data da Compra: {DataCompra}" +
+                                                              $"\n Cliente: {Cliente}");
                                         }
                                     }
                                 }
@@ -324,9 +351,9 @@ else if (ModoOperacao == 2)
                             connection.Open();
 
                             Sql = string.Format("SELECT V.VENDAID, V.VALOR, V.DATACOMPRA, C.NOME " +
-                            " FROM VENDAS V" +
-                            " INNER JOIN CLIENTES C ON V.CLIENTEID = C.CLIENTEID" +
-                            " WHERE V.CLIENTEID = {0} ", id);
+                                                " FROM VENDAS V" +
+                                                " INNER JOIN CLIENTES C ON V.CLIENTEID = C.CLIENTEID" +
+                                                " WHERE V.CLIENTEID = {0} ", id);
 
                             using (SqlCommand command = new SqlCommand(Sql, connection))
                             {
@@ -339,7 +366,10 @@ else if (ModoOperacao == 2)
                                         DataCompra = ((DateTime)reader["DATACOMPRA"]).ToString("dd/MM/yyyy");
                                         Cliente = reader["NOME"].ToString();
 
-                                        Console.WriteLine($"\n Id da Compra: {VendaId}\n Valor da Compra: R$ {ValorCompra}\n Data da Compra: {DataCompra}\n Cliente: {Cliente}");
+                                        Console.WriteLine($"\n Id da Compra: {VendaId}\n " +
+                                                         $"Valor da Compra: R$ {ValorCompra}\n " +
+                                                         $"Data da Compra: {DataCompra}\n " +
+                                                         $"Cliente: {Cliente}");
                                     }
                                 }
                             }
@@ -367,7 +397,7 @@ else if (ModoOperacao == 2)
 
                         Console.WriteLine("Digite a data da compra");
                         DataCompra = Console.ReadLine();
-                        if(DataCompra == "Hoje")
+                        if (DataCompra == "Hoje")
                         {
                             DateTime hoje = DateTime.Today;
                             DataCompra = hoje.ToString("yyyy-MM-dd");
@@ -378,7 +408,9 @@ else if (ModoOperacao == 2)
 
                         connection.Open();
 
-                        Sql = string.Format("INSERT INTO VENDAS (VALOR, DATACOMPRA, CLIENTEID) VALUES ('{0}', '{1}', '{2}')", ValorCompra, DataCompra, id);
+                        Sql = string.Format("INSERT INTO VENDAS (VALOR, DATACOMPRA, CLIENTEID) " +
+                                            "VALUES ('{0}', '{1}', '{2}')",
+                                            ValorCompra, DataCompra, id);
                         try
                         {
                             using (SqlCommand command = new SqlCommand(Sql, connection))
@@ -414,7 +446,8 @@ else if (ModoOperacao == 2)
                         Console.WriteLine("Data da Venda:");
                         DataCompra = Console.ReadLine();
 
-                        Sql = string.Format("UPDATE VENDAS SET(VALOR = {0}, DATACOMPRA = '{1}')", ValorCompra, DataCompra);
+                        Sql = string.Format("UPDATE VENDAS SET(VALOR = {0}, DATACOMPRA = '{1}')",
+                                                               ValorCompra, DataCompra);
 
                         using (SqlCommand command = new SqlCommand(Sql, connection))
                         {
